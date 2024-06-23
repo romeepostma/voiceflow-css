@@ -22,20 +22,27 @@
   <script>
     function changeUserMessageColor(color) {
       const iframe = document.getElementById('voiceflow-iframe');
-      iframe.onload = function() {
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const userMessages = iframeDocument.querySelectorAll('.voiceflow-chat .user-message');
-        userMessages.forEach(message => {
-          message.style.backgroundColor = color;
-        });
-      };
+      const iframeWindow = iframe.contentWindow;
+      const iframeDocument = iframe.contentDocument || iframeWindow.document;
+      
+      // Add a delay to ensure messages are loaded
+      setTimeout(() => {
+        // Replace this selector with the correct one based on inspection
+        const userMessages = iframeDocument.querySelectorAll('.sc-bzoULG.eMMTpJ');
+        if (userMessages.length > 0) {
+          userMessages.forEach(message => {
+            message.style.backgroundColor = color;
+          });
+          console.log(`Changed ${userMessages.length} user messages to color ${color}`);
+        } else {
+          console.log('No user messages found');
+        }
+      }, 2000); // Adjust delay as needed
     }
 
     // Call the function to change the color when the iframe loads
-    window.onload = function() {
-      setTimeout(() => {
-        changeUserMessageColor('#0000FF'); // Change to blue
-      }, 2000); // Adjust delay as needed
+    document.getElementById('voiceflow-iframe').onload = function() {
+      changeUserMessageColor('#0000FF'); // Change to blue
     };
   </script>
 </body>
