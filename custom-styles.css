@@ -1,4 +1,4 @@
 /* custom-styles.css */
-vfrc-user-response .vfrc-message {
-    color: #0200FF;
+.vfrc-message {
+    background-color: #0200FF;
 }
